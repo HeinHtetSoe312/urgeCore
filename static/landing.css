@@ -1,0 +1,132 @@
+/* static/landing.css */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+.landing-container {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* Left Side: Bold, Full-Height Brand Section */
+.info-section {
+    background-color: #000000; /* Sleek black like high-end fintech */
+    color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+}
+
+.info-section h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.info-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: #a1a1aa;
+}
+
+.info-section ul {
+    list-style-type: none;
+}
+
+.info-section ul li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Right Side: Clean, Spacious Form Area */
+.form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+    background-color: #ffffff;
+}
+
+.form-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 10px 0 25px 0;
+    border: none;
+    background-color: #f4f4f5;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    background-color: #e4e4e7;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #0070f3;
+    color: #fff;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #005bb5;
+}
+
+.flash-messages {
+    list-style: none; margin-bottom: 20px;
+}
+
+.flash-messages li {
+    background: #fee2e2; color: #b91c1c; padding: 15px; border-radius: 8px;
+}
+
+a { 
+    color: #0070f3;
+    text-decoration: none;
+    font-weight: 500;}
+    
+a:hover { text-decoration: underline; }
+
+/* Mobile View: Stack them, keep it clean */
+@media (max-width: 900px) {
+    .landing-container {
+        flex-direction: column;
+    }
+    .info-section {
+        padding: 40px 20px;
+        flex: none; /* Let it size to content */
+    }
+    .info-section h1 { font-size: 2.5rem; }
+    .form-section {
+        padding: 40px 20px;
+    }
+}

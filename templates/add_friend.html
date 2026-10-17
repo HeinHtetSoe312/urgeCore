@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<div class="page-header">
+    <h1>Add a Friend</h1>
+    <p>Connect with someone to start sending and receiving loan orders.</p>
+</div>
+
+<div class="content-card">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-messages">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            <label>{{ form.username.label }}</label>
+            {{ form.username(placeholder="Enter their exact username") }}
+        </div>
+
+        <div>
+          {% for error in form.username.errors %}
+              <div style="color: #d0021b; font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+          {% endfor %}
+        </div>
+        
+        <div class="button-group">
+            <a href="{{ url_for('dashboard') }}" class="btn-secondary">Cancel</a>
+            {{ form.submit(class="btn-primary", value="Send Request") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

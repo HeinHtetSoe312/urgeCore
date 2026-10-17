@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<div class="page-header">
+    <h1>Active Loans</h1>
+    <p>Manage your current debts and investments.</p>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flash-messages" style="margin-bottom: 20px;">
+        {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div class="page-header" style="margin-top: 20px;">
+    <h2>Money You Owe</h2>
+</div>
+
+{% if borrowed %}
+<div class="loan-grid">
+    {% for loan in borrowed %}
+    <div class="loan-item">
+        <div class="loan-item-header">
+            <div style="display: flex; flex-direction: column;">
+                <span class="loan-amount">€{{ "%.2f"|format(loan.amount + (loan.amount * (loan.interest_rate / 100))) }}</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">(Includes {{ loan.interest_rate }}% interest)</span>
+            </div>
+            <span class="loan-badge" style="background: #fee2e2; color: #991b1b;">To Pay</span>
+        </div>
+        <div class="loan-detail"><strong>Lender:</strong> {{ loan.lender }}</div>
+        <div class="loan-detail"><strong>Interest:</strong> {{ loan.interest_rate }}%</div>
+        <div class="loan-detail"><strong>Due Date:</strong> {{ loan.due_date }}</div>
+        
+        <div style="margin-top: 20px;">
+            <form action="{{ url_for('pay_loan', loan_id=loan.id) }}" method="POST">
+                <button type="submit" class="btn-primary" style="padding: 10px; font-size: 0.9rem;" onclick="return confirm('Are you sure you want to pay back €{{ loan.amount }} + interest?');">Pay Back Loan</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p style="color: var(--text-muted);">You have no outstanding debts. Great job!</p>
+{% endif %}
+
+<div class="page-header" style="margin-top: 50px;">
+    <h2>Money Owed to You</h2>
+</div>
+
+{% if lended %}
+<div class="loan-grid">
+    {% for loan in lended %}
+    <div class="loan-item">
+        <div class="loan-item-header">
+            <div style="display: flex; flex-direction: column;">
+                <span class="loan-amount">€{{ "%.2f"|format(loan.amount + (loan.amount * (loan.interest_rate / 100))) }}</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">(Total return expected)</span>
+            </div>
+            <span class="loan-badge" style="background: #dcfce7; color: #166534;">Expecting</span>
+        </div>
+        <div class="loan-detail"><strong>Borrower:</strong> {{ loan.borrower }}</div>
+        <div class="loan-detail"><strong>Interest:</strong> {{ loan.interest_rate }}%</div>
+        <div class="loan-detail"><strong>Due Date:</strong> {{ loan.due_date }}</div>
+        
+        <div style="margin-top: 20px;">
+            <button class="btn-secondary" disabled style="padding: 10px; font-size: 0.9rem; border-color: var(--border-color); color: var(--text-muted); cursor: not-allowed;">Awaiting Payment</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p style="color: var(--text-muted);">You haven't lended money to anyone currently.</p>
+{% endif %}
+
+{% endblock %}

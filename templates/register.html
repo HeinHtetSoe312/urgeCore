@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join MicroLoans</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+
+    <div class="landing-container">
+        <div class="info-section" style="background-color: #1a1a1a;">
+            <h1>Join the Network.</h1>
+            <p>Start with a base credit score of 650. Borrow responsibly, pay back on time, and watch your reputation grow within the MicroLoans ecosystem.</p>
+        </div>
+
+        <div class="form-section">
+            <h2>Create Account</h2>
+            
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div>
+                    {{ form.username.label }}<br>
+                    {{ form.username(placeholder="Choose a username") }}
+                    {% for error in form.username.errors %}
+                        <div style="color: #d0021b; font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.password.label }}<br>
+                    {{ form.password(placeholder="Create a strong password") }}
+                </div>
+                <div>
+                    {% for error in form.password.errors %}
+                        <div style="color: #d0021b; font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.confirm_password.label }}<br>
+                    {{ form.confirm_password(placeholder="Confirm your password") }}
+                    {% for error in form.confirm_password.errors %}
+                        <div style="color: #d0021b; font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div style="margin-top: 20px;">
+                    {{ form.submit(value="Register") }}
+                </div>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
