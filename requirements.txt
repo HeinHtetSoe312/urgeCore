@@ -1,0 +1,11 @@
+# Runtime dependencies, pinned to the versions from the project's local virtualenv
+# (the ones the tests ran against). Upgrade deliberately, one at a time, with tests.
+fastapi==0.143.3
+uvicorn[standard]==0.54.0
+sqlalchemy[asyncio]==2.1.5
+asyncpg==0.32.0
+alembic==1.20.0
+pydantic-settings==2.16.0
+redis==8.1.0
+pyjwt==2.15.1
+argon2-cffi==25.1.0
