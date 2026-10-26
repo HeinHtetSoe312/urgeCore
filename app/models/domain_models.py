@@ -1,7 +1,9 @@
 """ORM models. Money is Numeric(12, 2) / Decimal, never float.
-Friendship and loan tables are not built. The friction (spending)
-and outbox tables exist in the schema
-but no feature uses them yet."""
+
+Friendship and loan tables are not built.
+The friction (spending) and outbox tables exist in the schema
+but no feature uses them yet.
+"""
 
 import uuid
 from datetime import datetime
@@ -42,7 +44,6 @@ class Base(DeclarativeBase):
     metadata = MetaData(naming_convention=NAMING_CONVENTION)
 
 
-# core
 class User(Base):
     __tablename__ = "users"
     __table_args__ = (CheckConstraint("balance >= 0", name="balance_non_negative"),)
@@ -53,7 +54,7 @@ class User(Base):
     balance: Mapped[Decimal] = mapped_column(
         MONEY, default=Decimal("100.00"), server_default="100.00"
     )
-
+    # Reserved for a future repayment feature.
     internal_credit_score: Mapped[int] = mapped_column(Integer, default=600, server_default="600")
     verification_tier: Mapped[str] = mapped_column(
         String(20), default="Basic", server_default="Basic"
@@ -129,7 +130,7 @@ class CrowdfundCampaign(Base):
             "status IN ('active', 'pending_settlement', 'funded', 'expired')",
             name="status_valid",
         ),
-        # Lets the reconciler find overdue settlements quickly.
+        # For finding overdue settlements quickly.
         Index("ix_campaign_status_deadline", "status", "settlement_deadline"),
     )
 
