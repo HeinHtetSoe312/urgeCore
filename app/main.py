@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.v1 import account, auth, health
+from app.api.v1 import account, auth, crowdfund, health
 from app.core.config import get_settings
 from app.core.errors import register_exception_handlers
 from app.core.logging import configure_logging
@@ -29,8 +29,9 @@ def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(
         title="Urge Core Engine",
-        version="0.1.0",
+        version="0.2.0",
         lifespan=lifespan,
+        # Docs and OpenAPI are disabled outside local/dev.
         docs_url="/docs" if settings.enable_docs else None,
         redoc_url=None,
         openapi_url="/openapi.json" if settings.enable_docs else None,
@@ -40,6 +41,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(account.router, prefix="/api/v1")
+    app.include_router(crowdfund.router, prefix="/api/v1")
     return app
 
 

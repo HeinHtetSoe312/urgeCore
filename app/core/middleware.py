@@ -17,7 +17,7 @@ _VALID = re.compile(r"^[A-Za-z0-9._-]{1,64}$")
 class CorrelationIdMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         incoming = request.headers.get(HEADER, "")
-        correlation_id = incoming if _VALID.fullmatch(incoming) else uuid.uuid4().hex
+        correlation_id = incoming if _VALID.match(incoming) else uuid.uuid4().hex
         # Each request runs in its own task, so no reset is needed; this also lets
         # the outer 500 handler still see the ID.
         correlation_id_var.set(correlation_id)

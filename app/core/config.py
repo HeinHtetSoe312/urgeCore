@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_minutes: int = 30
     settlement_window_seconds: int = 7200  # 2 hours; tests use a few seconds
-    enable_docs: bool = True
+    enable_docs: bool = True  # set false outside local/dev
     log_level: str = "INFO"
 
     @field_validator("jwt_secret")

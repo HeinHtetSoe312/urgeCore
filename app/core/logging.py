@@ -1,4 +1,7 @@
-"""Structured JSON logging with a per-request correlation ID."""
+"""Structured JSON logging with a per-request correlation ID.
+
+Rule: never log request bodies, passwords, tokens or keys.
+"""
 
 import json
 import logging
