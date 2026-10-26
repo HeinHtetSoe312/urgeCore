@@ -1,13 +1,15 @@
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Migrations are generated files; they are reviewed by hand but not reformatted.
+extend-exclude = ["alembic/versions"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "S"]
 ignore = ["B008"]  # FastAPI uses Depends(...) in argument defaults
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101", "S105", "S106"]
+"tests/*" = ["S101", "S105", "S106", "S404", "S603", "S607"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
